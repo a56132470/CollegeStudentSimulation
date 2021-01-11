@@ -13,3 +13,8 @@ Visual Studio / MonoDevelop generated
 
 /*.csproj
 /*.sln
+
+=====================================
+Rider generated
+=====================================
+/.idea
