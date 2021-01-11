@@ -1,0 +1,15 @@
+====================================
+Unity generated
+====================================
+/ProjectSettings
+/Temp
+/Library
+
+=====================================
+Visual Studio / MonoDevelop generated
+=====================================
+/ExportedObj
+/obj
+
+/*.csproj
+/*.sln
