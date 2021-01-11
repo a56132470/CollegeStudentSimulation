@@ -1,6 +1,10 @@
 ﻿using Base.Struct;
+using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.UIPanel;
 using UnityEngine;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Panel
 {
@@ -34,7 +38,7 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             m_ProfileBtn.onClick.AddListener(OnProfileBtnClick);
             m_ActionBtn.onClick.AddListener(OnActionBtnClick);
             m_NextBtn.onClick.AddListener(OnNextBtnClick);
@@ -43,10 +47,10 @@ namespace Panel
             m_RoommateBtns[0].onClick.AddListener(() => { OnRoommateBtnClick(0); });
             m_RoommateBtns[1].onClick.AddListener(() => { OnRoommateBtnClick(1); });
             m_RoommateBtns[2].onClick.AddListener(() => { OnRoommateBtnClick(2); });
-            EventCenter.AddListener(EventType.NEXT_ROUND, NextRound);
-            EventCenter.AddListener<string>(EventType.CHANGE_SKIN, SetSkin);
-            EventCenter.AddListener(EventType.UPDATE_ACTIONPANEL_EVENT, SetCurRoundTxt);
-            EventCenter.AddListener<bool>(EventType.CONTROLL_UI_ON_OFF, ControllUIShowAndFade);
+            EventCenter.AddListener(EventType.NextRound, NextRound);
+            EventCenter.AddListener<string>(EventType.ChangeSkin, SetSkin);
+            EventCenter.AddListener(EventType.UpdateActionPanelEvent, SetCurRoundTxt);
+            EventCenter.AddListener<bool>(EventType.ControllUIOnOff, ControllUIShowAndFade);
             m_CurRoundTxt.text = "当前回合：" + GlobalManager.Instance.player.CurRound.ToString();
         
         }
@@ -62,10 +66,10 @@ namespace Panel
             m_RoommateBtns[0].onClick.RemoveAllListeners();
             m_RoommateBtns[1].onClick.RemoveAllListeners();
             m_RoommateBtns[2].onClick.RemoveAllListeners();
-            EventCenter.RemoveListener(EventType.NEXT_ROUND, NextRound);
-            EventCenter.RemoveListener<string>(EventType.CHANGE_SKIN, SetSkin);
-            EventCenter.RemoveListener(EventType.UPDATE_ACTIONPANEL_EVENT, SetCurRoundTxt);
-            EventCenter.RemoveListener<bool>(EventType.CONTROLL_UI_ON_OFF, ControllUIShowAndFade);
+            EventCenter.RemoveListener(EventType.NextRound, NextRound);
+            EventCenter.RemoveListener<string>(EventType.ChangeSkin, SetSkin);
+            EventCenter.RemoveListener(EventType.UpdateActionPanelEvent, SetCurRoundTxt);
+            EventCenter.RemoveListener<bool>(EventType.ControllUIOnOff, ControllUIShowAndFade);
         }
 
         private void OnProfileBtnClick()
@@ -78,7 +82,7 @@ namespace Panel
         }
         private void OnNextBtnClick()
         {
-            EventCenter.Broadcast(EventType.NEXT_ROUND);
+            EventCenter.Broadcast(EventType.NextRound);
         }
         private void NextRound()
         {
@@ -134,7 +138,7 @@ namespace Panel
         private void OnRoommateBtnClick(int id)
         {
             UIPanelManager.Instance.PushPanel(UIPanelType.Roommate);
-            EventCenter.Broadcast(EventType.REFRESH_ROOMMATE, id);
+            EventCenter.Broadcast(EventType.RefreshRoommate, id);
         }
 
         private void OnSettingBtnClick()

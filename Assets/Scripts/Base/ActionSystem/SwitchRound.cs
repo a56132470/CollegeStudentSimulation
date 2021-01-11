@@ -1,6 +1,8 @@
 ﻿using DSD.KernalTool;
+using Framework.Event;
 using UnityEngine;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Base.ActionSystem
 {
@@ -116,7 +118,7 @@ namespace Base.ActionSystem
                     
                     s.SetActionName("");
                     s.action = null;
-                    EventCenter.Broadcast(EventType.UPDATE_ACTIONCAPTION, "", "");
+                    EventCenter.Broadcast(EventType.UpdateActionCaption, "", "");
                 }
                 
             }

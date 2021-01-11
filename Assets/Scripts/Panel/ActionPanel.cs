@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Base.ActionSystem;
 using Base.PlotSystem;
+using Framework.Event;
 using UnityEngine;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Panel
 {
@@ -58,13 +60,13 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             // 绑定事件
             m_Action_Toggle.onValueChanged.AddListener(OnActionToggleClick);
             m_Plot_Toggle.onValueChanged.AddListener(OnPlotToggleClick);
             m_NextRoundBtn.GetComponent<Button>().onClick.AddListener(OnNextRoundBtnClick);
-            EventCenter.AddListener<string, string>(EventType.UPDATE_ACTIONCAPTION, UpdateConsumeAndCaption);
-            EventCenter.AddListener(EventType.UPDATE_ACTIONPANEL_EVENT, RefreshPlotPanel);
+            EventCenter.AddListener<string, string>(EventType.UpdateActionCaption, UpdateConsumeAndCaption);
+            EventCenter.AddListener(EventType.UpdateActionPanelEvent, RefreshPlotPanel);
         }
 
         public override void OnExit()
@@ -74,15 +76,15 @@ namespace Panel
             m_Action_Toggle.onValueChanged.RemoveListener(OnActionToggleClick);
             m_Plot_Toggle.onValueChanged.RemoveListener(OnPlotToggleClick);
             m_NextRoundBtn.GetComponent<Button>().onClick.RemoveListener(OnNextRoundBtnClick);
-            EventCenter.RemoveListener<string, string>(EventType.UPDATE_ACTIONCAPTION, UpdateConsumeAndCaption);
-            EventCenter.RemoveListener(EventType.UPDATE_ACTIONPANEL_EVENT, RefreshPlotPanel);
+            EventCenter.RemoveListener<string, string>(EventType.UpdateActionCaption, UpdateConsumeAndCaption);
+            EventCenter.RemoveListener(EventType.UpdateActionPanelEvent, RefreshPlotPanel);
         }
 
         public override void OnResume()
         {
             base.OnResume();
             m_Caption_Gam.GetComponent<Text>().text = "";
-            EventCenter.Broadcast(EventType.UPDATE_ACTIONPANEL_EVENT);
+            EventCenter.Broadcast(EventType.UpdateActionPanelEvent);
         }
 
         /// <summary>

@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using Base.ActionSystem;
 using Base.PlotSystem;
 using Base.Struct;
+using Framework.Event;
+using Framework.UI.Tools;
 using JetBrains.Annotations;
 using UnityEngine;
+using EventType = Framework.Event.EventType;
+
 public class PlotManager : MonoBehaviour
 {
     public static PlotManager Instance;
@@ -18,7 +22,7 @@ public class PlotManager : MonoBehaviour
             Instance = this;
         else
             Destroy(this);
-        EventCenter.AddListener(EventType.NEXT_ROUND, UpdateVariable);
+        EventCenter.AddListener(EventType.NextRound, UpdateVariable);
     }
 
     public void SetTopic(Topic tc)
@@ -94,7 +98,7 @@ public class PlotManager : MonoBehaviour
     public void ExitPlace(int index)
     {
         m_CurTopic.Plots[(index - 1)].IsFinish = true;
-        EventCenter.Broadcast(EventType.UPDATE_ACTIONPANEL_EVENT);
+        EventCenter.Broadcast(EventType.UpdateActionPanelEvent);
     }
     [UsedImplicitly]
     public string GetVariable(string variableName)
@@ -114,11 +118,11 @@ public class PlotManager : MonoBehaviour
     }
     public void ControllUI(bool flag)
     {
-        EventCenter.Broadcast<bool>(EventType.CONTROLL_UI_ON_OFF, flag);
+        EventCenter.Broadcast<bool>(EventType.ControllUIOnOff, flag);
     }
     public void SetSkin(string skin)
     {
-        EventCenter.Broadcast<string>(EventType.CHANGE_SKIN, skin);
+        EventCenter.Broadcast<string>(EventType.ChangeSkin, skin);
     }
     #region  Check  
     /// <summary>

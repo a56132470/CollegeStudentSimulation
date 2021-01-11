@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 
-public static class DictTool
+namespace Framework.UI.Tools
 {
-    public static Tvalue GetValue<TKey, Tvalue>(this Dictionary<TKey, Tvalue> dict, TKey key)
+    public static class DictTool
     {
-        dict.TryGetValue(key, out var value);
-        return value;
+        public static Tvalue GetValue<TKey, Tvalue>(this Dictionary<TKey, Tvalue> dict, TKey key)
+        {
+            dict.TryGetValue(key, out var value);
+            return value;
+        }
     }
 }

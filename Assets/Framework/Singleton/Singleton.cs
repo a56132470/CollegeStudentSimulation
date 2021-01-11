@@ -1,4 +1,4 @@
-﻿namespace DSD.Framework.Singleton
+﻿namespace Framework.Singleton
 {
     public class Singleton<T> where T : class, new()
     {

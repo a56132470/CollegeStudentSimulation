@@ -1,4 +1,5 @@
-﻿using DSD.Framework.Singleton;
+﻿using Framework.Singleton;
+
 public class SlotItemType: Singleton<SlotItemType>
 {
     public const string Coffee = "罐装咖啡";

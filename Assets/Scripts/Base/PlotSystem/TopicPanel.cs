@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using UnityEngine;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Base.PlotSystem
 {
@@ -78,7 +80,7 @@ namespace Base.PlotSystem
 
         private void OnGoBtnClick(string pt)
         {
-            EventCenter.Broadcast(EventType.CHANGE_SKIN, pt);
+            EventCenter.Broadcast(EventType.ChangeSkin, pt);
             PlotManager.Instance.SetTopic(m_Topic);
             PlotManager.Instance.ShowBranch((m_PlotIndex + 1));
         }

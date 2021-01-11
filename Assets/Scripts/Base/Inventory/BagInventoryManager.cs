@@ -47,7 +47,7 @@ namespace Base.Inventory
             }
         }
 
-        public void CreateNewItem(Item item)
+        private void CreateNewItem(Item item)
         {
             Slot newItem = Instantiate(slotPrefab, slotGrid.transform);
             newItem.slotItem = item;

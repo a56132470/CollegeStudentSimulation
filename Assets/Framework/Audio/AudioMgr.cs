@@ -1,4 +1,4 @@
-﻿using DSD.Framework.Singleton;
+﻿using Framework.Singleton;
 using UnityEngine;
 
 namespace DSD.Framework.Audio

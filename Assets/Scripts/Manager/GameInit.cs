@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine;
+using EventType = Framework.Event.EventType;
+
 public class GameInit : MonoBehaviour
 {
     public static GameInit Instance;
@@ -14,7 +19,7 @@ public class GameInit : MonoBehaviour
         // 初始化UI管理器，加入游戏开始界面
         UIPanelManager.Instance.PushPanel(UIPanelType.GameStart);
 
-        EventCenter.AddListener<string, int, int>(EventType.GAME_INIT, InitRoles);
+        EventCenter.AddListener<string, int, int>(EventType.GameInit, InitRoles);
     }
 #if UNITY_EDITOR
     private void Update()
@@ -24,12 +29,12 @@ public class GameInit : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 GlobalManager.Instance.player.CurRound += 1;
-                EventCenter.Broadcast(EventType.UPDATE_ROUND_TXT);
+                EventCenter.Broadcast(EventType.UpdateRoundTxt);
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 GlobalManager.Instance.player.CurRound -= 1;
-                EventCenter.Broadcast(EventType.UPDATE_ROUND_TXT);
+                EventCenter.Broadcast(EventType.UpdateRoundTxt);
             }
         }
     }

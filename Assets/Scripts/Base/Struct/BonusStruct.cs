@@ -5,19 +5,19 @@ namespace Base.Struct
         /// <summary>
         /// 逻辑加成
         /// </summary>
-        public int LogicBonus { get; set; }
+        public int LogicBonus { get; }
         /// <summary>
         /// 体能加成
         /// </summary>
-        public int AthleticsBonus { get; set; }
+        public int AthleticsBonus { get; }
         /// <summary>
         /// 口才加成
         /// </summary>
-        public int TalkBonus { get; set; }
+        public int TalkBonus { get; }
         /// <summary>
         /// 灵感加成
         /// </summary>
-        public int CreativityBonus { get; set; }
+        public int CreativityBonus { get; }
         
         public BonusStruct(int logicBonus, int athleticsBonus, int talkBonus, int creativityBonus)
         {

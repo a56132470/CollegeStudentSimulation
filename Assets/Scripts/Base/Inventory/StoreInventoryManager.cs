@@ -14,28 +14,28 @@ namespace Base.Inventory
         public Slot slotPrefab;
 
         // 保存进来的回合数，若当前回合数与之前进来的回合数不一样就刷新商店
-        private int m_LastRound;
-        private List<Item> m_Items;
+        private int _lastRound;
+        private List<Item> _items;
         private void Awake()
         {
             if (Instance != null)
                 Destroy(this);
             else
                 Instance = this;
-            m_Items = (Resources.Load("Inventory/Inventories/ItemInventory_Store") as Inventory)?.itemList;
+            _items = (Resources.Load("Inventory/Inventories/ItemInventory_Store") as Inventory)?.itemList;
         }
 
         private void Start()
         {
-            m_LastRound = 0;
+            _lastRound = 0;
         }
 
         private void OnEnable()
         {
-            if (m_LastRound != GlobalManager.Instance.player.CurRound)
+            if (_lastRound != GlobalManager.Instance.player.CurRound)
             {
                 RefreshItem();
-                m_LastRound = GlobalManager.Instance.player.CurRound;
+                _lastRound = GlobalManager.Instance.player.CurRound;
             }
         }
 
@@ -54,8 +54,8 @@ namespace Base.Inventory
         }
         public void RemoveItem(Item item)
         {
-            if (m_Items.Contains(item))
-                m_Items.Remove(item);
+            if (_items.Contains(item))
+                _items.Remove(item);
             else
                 Debug.LogWarning($"m_Items不含{item},无法移除");
         }
@@ -66,13 +66,13 @@ namespace Base.Inventory
         {
             store.itemList.Clear();
 
-            var randomSequence = Widget.GetRandomSequence(m_Items.Count, 6);
+            var randomSequence = Widget.GetRandomSequence(_items.Count, 6);
             // 从asset里挑选六个生成
             for (var i = 0; i < 6; i++)
             {
                 var newItem = Instantiate(slotPrefab, slotGrid.transform);
-                newItem.slotItem = m_Items[randomSequence[i]];
-                newItem.slotImage.sprite = m_Items[randomSequence[i]].itemImage;
+                newItem.slotItem = _items[randomSequence[i]];
+                newItem.slotImage.sprite = _items[randomSequence[i]].itemImage;
                 newItem.isSell = true;
                 store.itemList.Add(newItem.slotItem);
             }

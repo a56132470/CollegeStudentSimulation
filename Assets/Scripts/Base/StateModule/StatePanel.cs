@@ -4,23 +4,23 @@ using UnityEngine.UI;
 public class StatePanel : MonoBehaviour
 {
     public State state;
-    private Text m_Title;
-    private Text m_Effect;
-    private Text m_RemainRound;
+    private Text _title;
+    private Text _effect;
+    private Text _remainRound;
 
     private void Awake()
     {
-        m_Title = transform.Find("Title").GetComponent<Text>();
-        m_Effect = transform.Find("Effect").GetComponent<Text>();
-        m_RemainRound = transform.Find("RemainRound").GetComponent<Text>();
+        _title = transform.Find("Title").GetComponent<Text>();
+        _effect = transform.Find("Effect").GetComponent<Text>();
+        _remainRound = transform.Find("RemainRound").GetComponent<Text>();
     }
 
     public void SetState(State st, string ef)
     {
         state = st;
-        m_Title.text = st.Name;
+        _title.text = st.Name;
         if(st.StType==StateType.Temporarily)
-            m_RemainRound.text = "剩余" + st.RemainTime.ToString() + "回合";
-        m_Effect.text = ef;
+            _remainRound.text = "剩余" + st.RemainTime.ToString() + "回合";
+        _effect.text = ef;
     }
 }

@@ -1,114 +1,119 @@
-﻿using LitJson;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Framework.UI.Tools;
+using Framework.UI.UIPanel;
+using LitJson;
 using UnityEngine;
 
-public class UIPanelManager : MonoBehaviour
+namespace Framework.UI.Manager
 {
-    public static UIPanelManager Instance;
-    private Transform m_CanvasTransform;
-
-    private Transform CanvasTransform
+    public class UIPanelManager : MonoBehaviour
     {
-        get
+        public static UIPanelManager Instance;
+        private Transform _canvasTransform;
+
+        private Transform CanvasTransform
         {
-            if (m_CanvasTransform == null)
+            get
             {
-                m_CanvasTransform = GameObject.Find("Canvas").transform;
+                if (_canvasTransform == null)
+                {
+                    _canvasTransform = GameObject.Find("Canvas").transform;
+                }
+                return _canvasTransform;
             }
-            return m_CanvasTransform;
         }
-    }
     
-    private Dictionary<string, string> m_PanelPathDict;
-    private Dictionary<string, BasePanel> m_PanelDict;
-    private Stack<BasePanel> m_PanelStack;
+        private Dictionary<string, string> _panelPathDict;
+        private Dictionary<string, BasePanel> _panelDict;
+        private Stack<BasePanel> _panelStack;
 
-    private void Awake()
-    {
-        ParseUiPanelTypeJson();
-        if (Instance == null)
+        private void Awake()
         {
-            Instance = this;
-        }
-    }
-
-    /// <summary>
-    /// 将UIPanel推入栈
-    /// </summary>
-    /// <param name="panelType"></param>
-    /// <param name="intent"></param>
-    public void PushPanel(string panelType,object intent = null)
-    {
-        if (m_PanelStack == null)
-        {
-            m_PanelStack = new Stack<BasePanel>();
-        }
-        // 停止上一个界面
-        if (m_PanelStack.Count > 0)
-        {
-            BasePanel topPanel = m_PanelStack.Peek();
-            topPanel.OnPause();
+            ParseUiPanelTypeJson();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
         }
 
-        BasePanel panel = GetPanel(panelType);
-        m_PanelStack.Push(panel);
-        panel.OnEnter(intent);
-    }
-    /// <summary>
-    ///  弹出栈顶的UIPanel，并恢复弹出后栈顶的面板
-    /// </summary>
-    public void PopPanel()
-    {
-        if (m_PanelStack == null)
+        /// <summary>
+        /// 将UIPanel推入栈
+        /// </summary>
+        /// <param name="panelType"></param>
+        /// <param name="intent"></param>
+        public void PushPanel(string panelType,object intent = null)
         {
-            m_PanelStack = new Stack<BasePanel>();
-        }
-        // 停止上一个界面
-        if (m_PanelStack.Count <= 0)
-        {
-            return;
-        }
-        // 退出栈顶面板
-        BasePanel topPanel = m_PanelStack.Pop();
-        topPanel.OnExit();
-        // 恢复上一个面板
-        if (m_PanelStack.Count > 0)
-        {
-            BasePanel panel = m_PanelStack.Peek();
-            panel.OnResume();
-        }
-    }
+            if (_panelStack == null)
+            {
+                _panelStack = new Stack<BasePanel>();
+            }
+            // 停止上一个界面
+            if (_panelStack.Count > 0)
+            {
+                BasePanel topPanel = _panelStack.Peek();
+                topPanel.OnPause();
+            }
 
-    public BasePanel GetPanel(string panelType)
-    {
-        if (m_PanelDict == null)
-        {
-            m_PanelDict = new Dictionary<string, BasePanel>();
+            BasePanel panel = GetPanel(panelType);
+            _panelStack.Push(panel);
+            panel.OnEnter(intent);
         }
-        BasePanel panel = m_PanelDict.GetValue(panelType);
-        // 如果没有实例化面板，寻找路径进行实例化，并且存储到已经实例化好的字典面板中
-        if (panel == null)
+        /// <summary>
+        ///  弹出栈顶的UIPanel，并恢复弹出后栈顶的面板
+        /// </summary>
+        public void PopPanel()
         {
-            string path = m_PanelPathDict.GetValue(panelType);
+            if (_panelStack == null)
+            {
+                _panelStack = new Stack<BasePanel>();
+            }
+            // 停止上一个界面
+            if (_panelStack.Count <= 0)
+            {
+                return;
+            }
+            // 退出栈顶面板
+            BasePanel topPanel = _panelStack.Pop();
+            topPanel.OnExit();
+            // 恢复上一个面板
+            if (_panelStack.Count > 0)
+            {
+                BasePanel panel = _panelStack.Peek();
+                panel.OnResume();
+            }
+        }
+
+        public BasePanel GetPanel(string panelType)
+        {
+            if (_panelDict == null)
+            {
+                _panelDict = new Dictionary<string, BasePanel>();
+            }
+            BasePanel panel = _panelDict.GetValue(panelType);
+            // 如果没有实例化面板，寻找路径进行实例化，并且存储到已经实例化好的字典面板中
+            if (panel == null)
+            {
+                string path = _panelPathDict.GetValue(panelType);
             
-            GameObject panelGo = Instantiate(Resources.Load<GameObject>(path), CanvasTransform, false);
-            panel = panelGo.GetComponent<BasePanel>();
-            m_PanelDict.Add(panelType, panel);
-            panel.Init();
+                GameObject panelGo = Instantiate(Resources.Load<GameObject>(path), CanvasTransform, false);
+                panel = panelGo.GetComponent<BasePanel>();
+                _panelDict.Add(panelType, panel);
+                panel.Init();
+            }
+            return panel;
         }
-        return panel;
-    }
 
-    // 解析Json文件
-    private void ParseUiPanelTypeJson()
-    {
-        m_PanelPathDict = new Dictionary<string, string>();
-        TextAsset textUiPanelType = Resources.Load<TextAsset>("UIPanelTypeJson");
-        UIPanelInfoList panelInfoList = JsonMapper.ToObject<UIPanelInfoList>(textUiPanelType.text);
-
-        foreach (UIPanelInfo panelInfo in panelInfoList.panelInfoList)
+        // 解析Json文件
+        private void ParseUiPanelTypeJson()
         {
-            m_PanelPathDict.Add(panelInfo.panelType, panelInfo.path);
+            _panelPathDict = new Dictionary<string, string>();
+            TextAsset textUiPanelType = Resources.Load<TextAsset>("UIPanelTypeJson");
+            UIPanelInfoList panelInfoList = JsonMapper.ToObject<UIPanelInfoList>(textUiPanelType.text);
+
+            foreach (UIPanelInfo panelInfo in panelInfoList.panelInfoList)
+            {
+                _panelPathDict.Add(panelInfo.panelType, panelInfo.path);
+            }
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿using UnityEngine;
+﻿using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Panel
 {
     public class GameStartPanel : BasePanel
     {
-        private Button m_StartButton;
-        private Button m_SettingButton;
+        private Button _startButton;
+        private Button _settingButton;
 
         private void Update()
         {
@@ -20,22 +22,22 @@ namespace Panel
         public override void Init()
         {
             base.Init();
-            m_StartButton = transform.Find("StartBtn").GetComponent<Button>();
-            m_SettingButton = transform.Find("SettingBtn").GetComponent<Button>();
+            _startButton = transform.Find("StartBtn").GetComponent<Button>();
+            _settingButton = transform.Find("SettingBtn").GetComponent<Button>();
         }
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
-            m_StartButton.onClick.AddListener(OnStartButtonClick);
-            m_SettingButton.onClick.AddListener(OnSettingButtonClick);
+            base.OnEnter(intent);
+            _startButton.onClick.AddListener(OnStartButtonClick);
+            _settingButton.onClick.AddListener(OnSettingButtonClick);
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            m_StartButton.onClick.RemoveListener(OnStartButtonClick);
-            m_SettingButton.onClick.RemoveListener(OnSettingButtonClick);
+            _startButton.onClick.RemoveListener(OnStartButtonClick);
+            _settingButton.onClick.RemoveListener(OnSettingButtonClick);
         }
         public override void OnPause()
         {

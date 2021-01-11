@@ -1,7 +1,12 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.Tools;
+using Framework.UI.UIPanel;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Base.Inventory
 {
@@ -20,25 +25,25 @@ namespace Base.Inventory
         // 价格文本框
         [FormerlySerializedAs("Price")] public Text price;
         // 详细信息标题文本框
-        private Text m_DetailedInfoTitle;
+        private Text _detailedInfoTitle;
         // 详细信息描述文本框
-        private Text m_DetailedInfoCaption;
+        private Text _detailedInfoCaption;
         // 购买/使用 按钮
-        private Button m_BuyOrUseBtn;
+        private Button _buyOrUseBtn;
         // 携带状态文本数组
-        private string[] m_CarryingStateStr;
+        private string[] _carryingStateStr;
         // 是否可售
-        public bool isSell = false;
+        public bool isSell;
 
         private void Start()
         {
-            m_DetailedInfoTitle = detailedInfoGam.transform.Find("Title").GetComponent<Text>();
-            m_DetailedInfoCaption = detailedInfoGam.transform.Find("Caption").GetComponent<Text>();
-            m_BuyOrUseBtn = detailedInfoGam.GetComponentInChildren<Button>();
+            _detailedInfoTitle = detailedInfoGam.transform.Find("Title").GetComponent<Text>();
+            _detailedInfoCaption = detailedInfoGam.transform.Find("Caption").GetComponent<Text>();
+            _buyOrUseBtn = detailedInfoGam.GetComponentInChildren<Button>();
 
-            m_DetailedInfoTitle.text = slotItem.itemName;
-            m_DetailedInfoCaption.text = slotItem.itemEffect;
-            m_CarryingStateStr = new string[2];
+            _detailedInfoTitle.text = slotItem.itemName;
+            _detailedInfoCaption.text = slotItem.itemEffect;
+            _carryingStateStr = new string[2];
             heldNum.text = slotItem.itemHeld.ToString();
             if (price != null)
             {
@@ -46,7 +51,7 @@ namespace Base.Inventory
             }
             detailedInfoGam.SetActive(false);
 
-            m_BuyOrUseBtn.onClick.AddListener(OnBuyOrUseButtonClick);
+            _buyOrUseBtn.onClick.AddListener(OnBuyOrUseButtonClick);
             TranslateFromStrToState(slotItem.itemEffect);
         }
 
@@ -56,13 +61,13 @@ namespace Base.Inventory
         /// <param name="eventData"></param>
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if (isSell && m_BuyOrUseBtn.gameObject.name.Equals("Buy"))
+            if (isSell && _buyOrUseBtn.gameObject.name.Equals("Buy"))
                 detailedInfoGam.SetActive(true);
 
-            if (m_BuyOrUseBtn.gameObject.name.Equals("Use"))
+            if (_buyOrUseBtn.gameObject.name.Equals("Use"))
             {
                 detailedInfoGam.SetActive(true);
-                m_BuyOrUseBtn.gameObject.SetActive(!slotItem.itemName.Equals(SlotItemType.MechanicalKeyboard));
+                _buyOrUseBtn.gameObject.SetActive(!slotItem.itemName.Equals(SlotItemType.MechanicalKeyboard));
             }
         }
 
@@ -72,13 +77,13 @@ namespace Base.Inventory
         /// <param name="eventData"></param>
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            if (isSell && m_BuyOrUseBtn.gameObject.name.Equals("Buy"))
+            if (isSell && _buyOrUseBtn.gameObject.name.Equals("Buy"))
                 detailedInfoGam.SetActive(false);
 
-            if (m_BuyOrUseBtn.gameObject.name.Equals("Use"))
+            if (_buyOrUseBtn.gameObject.name.Equals("Use"))
             {
                 detailedInfoGam.SetActive(false);
-                m_BuyOrUseBtn.gameObject.SetActive(slotItem.itemName.Equals(SlotItemType.MechanicalKeyboard));
+                _buyOrUseBtn.gameObject.SetActive(slotItem.itemName.Equals(SlotItemType.MechanicalKeyboard));
             }
         }
 
@@ -89,7 +94,7 @@ namespace Base.Inventory
         /// </summary>
         private void OnBuyOrUseButtonClick()
         {
-            if (m_BuyOrUseBtn.gameObject.name.Equals("Buy"))
+            if (_buyOrUseBtn.gameObject.name.Equals("Buy"))
             {
                 // 买得起就扣除相应的钱款，并在bagInventory里增加item，买不起就弹出“你买不起”
                 if (GlobalManager.Instance.player.Money >= slotItem.itemPrice)
@@ -105,7 +110,7 @@ namespace Base.Inventory
                     GlobalManager.Instance.player.Money -= slotItem.itemPrice;
                     if (slotItem.itemName.Equals(SlotItemType.MechanicalKeyboard))
                     {
-                        GlobalManager.Instance.player.AddState(m_CarryingStateStr[0]);
+                        GlobalManager.Instance.player.AddState(_carryingStateStr[0]);
                         StoreInventoryManager.Instance.RemoveItem(slotItem);
                     
                     }
@@ -113,10 +118,10 @@ namespace Base.Inventory
                 else
                 {
                     UIPanelManager.Instance.PushPanel(UIPanelType.Tip);
-                    EventCenter.Broadcast(EventType.UPDATE_TIP, TipCaptionName.Buy_Fail);
+                    EventCenter.Broadcast(EventType.UpdateTip, TipCaptionName.Buy_Fail);
                 }
             }
-            else if (m_BuyOrUseBtn.gameObject.name.Equals("Use"))
+            else if (_buyOrUseBtn.gameObject.name.Equals("Use"))
             {
                 Use();
             }
@@ -130,16 +135,16 @@ namespace Base.Inventory
         /// </summary>
         private void Use()
         {
-            for (int i = 0; i < m_CarryingStateStr.Length && m_CarryingStateStr[i] != null; i++)
+            for (int i = 0; i < _carryingStateStr.Length && _carryingStateStr[i] != null; i++)
             {
-                if (GlobalManager.Instance.player.stateDic.ContainsKey(m_CarryingStateStr[i]))
+                if (GlobalManager.Instance.player.stateDic.ContainsKey(_carryingStateStr[i]))
                 {
-                    GlobalManager.Instance.player.stateDic.GetValue(m_CarryingStateStr[i]).RemainTime +=
-                        GlobalManager.Instance.player.stateDic.GetValue(m_CarryingStateStr[i]).Duration;
+                    GlobalManager.Instance.player.stateDic.GetValue(_carryingStateStr[i]).RemainTime +=
+                        GlobalManager.Instance.player.stateDic.GetValue(_carryingStateStr[i]).Duration;
                 }
                 else
                 {
-                    GlobalManager.Instance.player.AddState(m_CarryingStateStr[i]);
+                    GlobalManager.Instance.player.AddState(_carryingStateStr[i]);
                 }
             }
             if (slotItem.itemHeld > 1)
@@ -170,7 +175,7 @@ namespace Base.Inventory
                 {
                     if (XMLManager.Instance.stateDic.ContainsKey(splitEffect[j + 1]))
                     {
-                        m_CarryingStateStr[j] = splitEffect[j + 1];
+                        _carryingStateStr[j] = splitEffect[j + 1];
                     }
                 }
             }

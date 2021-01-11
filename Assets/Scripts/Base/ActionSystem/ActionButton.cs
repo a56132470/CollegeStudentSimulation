@@ -1,9 +1,13 @@
 ﻿using System.Text;
+using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.UIPanel;
 using Panel;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Base.ActionSystem
 {
@@ -83,7 +87,7 @@ namespace Base.ActionSystem
             if (m_Border != null)
                 m_Border.SetActive(true);
             m_ActionPanel.SetAction(XMLManager.Instance.actionList[actionId]);
-            EventCenter.Broadcast(EventType.UPDATE_ACTIONCAPTION, m_ConsumeStr.ToString(), m_CaptionStr.ToString());
+            EventCenter.Broadcast(EventType.UpdateActionCaption, m_ConsumeStr.ToString(), m_CaptionStr.ToString());
             determine();
         }
     }

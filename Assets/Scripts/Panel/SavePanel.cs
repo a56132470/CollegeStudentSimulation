@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Panel
 {
@@ -26,7 +30,7 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             gameObject.SetActive(true);
 
             m_ReturnBtn.onClick.AddListener(OnReturnButtonClick);
@@ -187,11 +191,11 @@ namespace Panel
             if (playerName.Equals(""))
             {
                 UIPanelManager.Instance.PushPanel(UIPanelType.Tip);
-                EventCenter.Broadcast(EventType.UPDATE_TIP, "请您输入名字");
+                EventCenter.Broadcast(EventType.UpdateTip, "请您输入名字");
             }
             else
             {
-                EventCenter.Broadcast(EventType.GAME_INIT, playerName, 1, m_Count);
+                EventCenter.Broadcast(EventType.GameInit, playerName, 1, m_Count);
 
                 GameSaveManager.Instance.SaveGame();
                 m_CreateRolePanel.SetActive(false);

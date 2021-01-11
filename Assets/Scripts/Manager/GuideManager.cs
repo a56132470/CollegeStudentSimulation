@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine;
 
 public class GuideManager : MonoBehaviour
 {

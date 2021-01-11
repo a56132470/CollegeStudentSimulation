@@ -12,7 +12,7 @@ public class Player : BasePerson
 
 
     // 周目，暂时找不到周目的单词
-    private int m_CurWeek;
+    private int _curWeek;
 
     public Player()
     {
@@ -39,7 +39,7 @@ public class Player : BasePerson
 
         m_Strength = 5;
         CurWeek = 1;
-        m_CurRound = 1;
+        curRound = 1;
         stateDic = new System.Collections.Generic.Dictionary<string, State>();
         records = new string[24, 5];
     }
@@ -71,16 +71,13 @@ public class Player : BasePerson
     /// </summary>
     public int CurWeek
     {
-        get
-        {
-            return m_CurWeek;
-        }
+        get => _curWeek;
         set
         {
-            m_CurWeek = value;
-            if (m_CurWeek <= 0)
+            _curWeek = value;
+            if (_curWeek <= 0)
             {
-                m_CurWeek = 1;
+                _curWeek = 1;
             }
         }
     }

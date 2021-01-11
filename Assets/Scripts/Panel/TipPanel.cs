@@ -1,4 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using Framework.Event;
+using Framework.UI.Manager;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Panel
@@ -26,8 +28,8 @@ namespace Panel
             m_ToastOkBtn.onClick.RemoveAllListeners();
             m_ToastCancelBtn.onClick.RemoveAllListeners();
             m_TipOkBtn.onClick.RemoveAllListeners();
-            EventCenter.RemoveListener<string>(EventType.UPDATE_TIP, UpdateTipCaption);
-            EventCenter.RemoveListener<string, UnityAction>(EventType.UPDATE_TOAST, UpdateToastCaption);
+            EventCenter.RemoveListener<string>(EventType.UpdateTip, UpdateTipCaption);
+            EventCenter.RemoveListener<string, UnityAction>(EventType.UpdateToast, UpdateToastCaption);
         }
         public override void Init()
         {
@@ -37,8 +39,8 @@ namespace Panel
             m_ToastCaptionText = transform.Find("Toast/Caption").GetComponent<Text>();
             m_TipOkBtn = transform.Find("Tip/OK").GetComponent<Button>();
             m_TipCaptionText = transform.Find("Tip/Caption").GetComponent<Text>();
-            EventCenter.AddListener<string, UnityAction>(EventType.UPDATE_TOAST, UpdateToastCaption);
-            EventCenter.AddListener<string>(EventType.UPDATE_TIP, UpdateTipCaption);
+            EventCenter.AddListener<string, UnityAction>(EventType.UpdateToast, UpdateToastCaption);
+            EventCenter.AddListener<string>(EventType.UpdateTip, UpdateTipCaption);
         }
         /// <summary>
         /// 更新信息

@@ -9,15 +9,13 @@ namespace Panel
         private GameObject m_PropertyPanel;
 
         [FormerlySerializedAs("m_PropertyTxts")] [SerializeField]
-        /// <summary>
-        /// 属性文本
-        /// <para>0:Name</para>
-        /// <para>1:Logic</para>
-        /// <para>2:Talk</para>
-        /// <para>3:Athletics</para>
-        /// <para>4:Creativity</para>
-        /// <para>5:Money</para>
-        /// </summary>
+        // 属性文本
+        // 0:Name
+        // 1:Logic
+        // 2:Talk
+        // 3:Athletics
+        // 4:Creativity
+        // 5:Money
         private Text[] propertyTxts = new Text[6];
 
         private Toggle m_State_Toggle;
@@ -91,7 +89,7 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             InitProperty();
             RefreshRecordPanel();
             m_State_Toggle.onValueChanged.AddListener(OnStateToggleClick);

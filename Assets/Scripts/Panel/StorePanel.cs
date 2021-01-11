@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Panel
@@ -18,7 +20,7 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             m_ReturnBtn.onClick.AddListener(OnReturnButtonClick);
             m_SettingBtn.onClick.AddListener(OnSettingButtonClick);
         }

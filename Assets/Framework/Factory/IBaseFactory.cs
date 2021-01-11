@@ -1,5 +1,8 @@
-﻿public interface IBaseFactory
+﻿namespace Framework.Factory
 {
+    public interface IBaseFactory
+    {
     
     
+    }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Framework.UI.Base;
+using Framework.UI.Manager;
+using UnityEngine;
 
 public class BasePanel : MonoBehaviour, IBasePanel
 {

@@ -16,11 +16,11 @@ namespace Base.StateModule
         [SerializeField] 
         private List<GameObject> stateGams;
 
-        private GameObject m_StateGrid;
+        private GameObject _stateGrid;
 
         private void Awake()
         {
-            m_StateGrid = transform.Find("Viewport/Content").gameObject;
+            _stateGrid = transform.Find("Viewport/Content").gameObject;
 
             stateGams = new List<GameObject>();
         }
@@ -39,9 +39,9 @@ namespace Base.StateModule
             {
                 person = GlobalManager.Instance.player;
             }
-            for (int i = 0; i < m_StateGrid.transform.childCount; i++)
+            for (int i = 0; i < _stateGrid.transform.childCount; i++)
             {
-                Destroy(m_StateGrid.transform.GetChild(i).gameObject);
+                Destroy(_stateGrid.transform.GetChild(i).gameObject);
             }
             List<string> removeKeys = new List<string>();
             if (person.stateDic != null && person.stateDic.Count > 0)
@@ -70,12 +70,12 @@ namespace Base.StateModule
             GameObject statepanel = LoadPrefabs.GetInstance().GetLoadPrefab("StatePanel");
             StatePanel panel = statepanel.GetComponent<StatePanel>();
             panel.SetState(k.Value, Translate(k.Value));
-            statepanel.transform.parent = m_StateGrid.transform;
+            statepanel.transform.parent = _stateGrid.transform;
             statepanel.GetComponent<RectTransform>().localScale = Vector3.one;
             stateGams.Add(statepanel);
         }
 
-        public string Translate(State state)
+        private string Translate(State state)
         {
             StringBuilder effectCaption = new StringBuilder();
             if (state.OtherEffect.Equals(""))

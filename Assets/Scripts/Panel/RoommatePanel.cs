@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Panel
 {
@@ -50,14 +52,14 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             m_State_Toggle.onValueChanged.AddListener(OnStateToggleClick);
             m_Record_Toggle.onValueChanged.AddListener(OnRecordToggleClick);
             m_Invite_Btn.onClick.AddListener(OnInviteBtnClick);
-            EventCenter.AddListener<int>(EventType.REFRESH_ROOMMATE, SetId);
-            EventCenter.AddListener<int>(EventType.REFRESH_ROOMMATE, RefreshInvitationBtn);
-            EventCenter.AddListener<int>(EventType.REFRESH_ROOMMATE, InitProperty);
-            EventCenter.AddListener<int>(EventType.REFRESH_ROOMMATE, RefreshRecordPanel);
+            EventCenter.AddListener<int>(EventType.RefreshRoommate, SetId);
+            EventCenter.AddListener<int>(EventType.RefreshRoommate, RefreshInvitationBtn);
+            EventCenter.AddListener<int>(EventType.RefreshRoommate, InitProperty);
+            EventCenter.AddListener<int>(EventType.RefreshRoommate, RefreshRecordPanel);
 
 
         }
@@ -68,10 +70,10 @@ namespace Panel
             m_State_Toggle.onValueChanged.RemoveListener(OnStateToggleClick);
             m_Record_Toggle.onValueChanged.RemoveListener(OnRecordToggleClick);
             m_Invite_Btn.onClick.RemoveListener(OnInviteBtnClick);
-            EventCenter.RemoveListener<int>(EventType.REFRESH_ROOMMATE, SetId);
-            EventCenter.RemoveListener<int>(EventType.REFRESH_ROOMMATE, InitProperty);
-            EventCenter.RemoveListener<int>(EventType.REFRESH_ROOMMATE, RefreshRecordPanel);
-            EventCenter.RemoveListener<int>(EventType.REFRESH_ROOMMATE, RefreshInvitationBtn);
+            EventCenter.RemoveListener<int>(EventType.RefreshRoommate, SetId);
+            EventCenter.RemoveListener<int>(EventType.RefreshRoommate, InitProperty);
+            EventCenter.RemoveListener<int>(EventType.RefreshRoommate, RefreshRecordPanel);
+            EventCenter.RemoveListener<int>(EventType.RefreshRoommate, RefreshInvitationBtn);
         }
         private void SetId(int ID)
         {

@@ -36,14 +36,14 @@ public class Roommate : BasePerson
     /// 初始化，配置表初始化之后弄
     /// </summary>
     /// <param name="name"></param>
-    /// <param name="learn"></param>
-    /// <param name="eloquence"></param>
+    /// <param name="talk"></param>
     /// <param name="athletics"></param>
     /// <param name="creativity"></param>
     /// <param name="money"></param>
     /// <param name="selfControl"></param>
     /// <param name="relationShip"></param>
     /// <param name="id"></param>
+    /// <param name="logic"></param>
     public Roommate(string name, int logic, int talk, int athletics, int creativity, int money, int selfControl, int relationShip, int id)
     {
         Name = name;

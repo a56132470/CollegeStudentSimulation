@@ -1,6 +1,6 @@
 ﻿using System;
-using DSD.Framework.Singleton;
 using System.Collections.Generic;
+using Framework.Singleton;
 using JetBrains.Annotations;
 
 namespace DSD.KernalTool

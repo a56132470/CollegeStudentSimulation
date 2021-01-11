@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Panel
 {
@@ -32,7 +36,7 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
 
             // CST 是否创建角色
             m_CST_CancelBtn.onClick.AddListener(OnCSTCancelBtnClick);
@@ -88,12 +92,12 @@ namespace Panel
             if (playerName.Equals(""))
             {
                 UIPanelManager.Instance.PushPanel(UIPanelType.Tip);
-                EventCenter.Broadcast(EventType.UPDATE_TIP, "请您输入名字");
+                EventCenter.Broadcast(EventType.UpdateTip, "请您输入名字");
             }
             else
             {
-                EventCenter.Broadcast(EventType.GAME_INIT, playerName, GlobalManager.Instance.player.CurWeek + 1, GlobalManager.Instance.saveId);
-                EventCenter.Broadcast(EventType.UPDATE_ACTIONPANEL_EVENT);
+                EventCenter.Broadcast(EventType.GameInit, playerName, GlobalManager.Instance.player.CurWeek + 1, GlobalManager.Instance.saveId);
+                EventCenter.Broadcast(EventType.UpdateActionPanelEvent);
                 GameSaveManager.Instance.SaveGame();
                 m_CreateRolePanel.SetActive(false);
                 m_CRP_CreateNameInputField.text = "";

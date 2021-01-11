@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Framework.Event;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Base.ActionSystem
 {
@@ -39,7 +41,7 @@ namespace Base.ActionSystem
             SetActionName("");
             // 将Action设为空
             action = null;
-            EventCenter.Broadcast(EventType.UPDATE_ACTIONCAPTION, "", "");
+            EventCenter.Broadcast(EventType.UpdateActionCaption, "", "");
         }
 
         public void SetActionName(string Name)

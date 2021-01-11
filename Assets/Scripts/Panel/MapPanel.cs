@@ -1,4 +1,7 @@
-﻿using UnityEngine.UI;
+﻿using Framework.Event;
+using Framework.UI.Manager;
+using Framework.UI.UIPanel;
+using UnityEngine.UI;
 
 namespace Panel
 {
@@ -20,7 +23,7 @@ namespace Panel
 
         public override void OnEnter(object intent = null)
         {
-            base.OnEnter();
+            base.OnEnter(intent);
             m_StoreBtn.onClick.AddListener(OnStoreBtnClick);
             m_ClassBtn.onClick.AddListener(OnClassBtnClick);
             m_DormBtn.onClick.AddListener(OnDormBtnClick);
@@ -51,17 +54,17 @@ namespace Panel
         }
         private void OnClassBtnClick()
         {
-            EventCenter.Broadcast<string>(EventType.CHANGE_SKIN, PlaceType.Classroom);
+            EventCenter.Broadcast<string>(EventType.ChangeSkin, PlaceType.Classroom);
             UIPanelManager.Instance.PopPanel();
         }
         private void OnDormBtnClick()
         {
-            EventCenter.Broadcast<string>(EventType.CHANGE_SKIN, PlaceType.Dorm);
+            EventCenter.Broadcast<string>(EventType.ChangeSkin, PlaceType.Dorm);
             UIPanelManager.Instance.PopPanel();
         }
         private void OnPlaygroundBtnClick()
         {
-            EventCenter.Broadcast<string>(EventType.CHANGE_SKIN, PlaceType.Playground);
+            EventCenter.Broadcast<string>(EventType.ChangeSkin, PlaceType.Playground);
             UIPanelManager.Instance.PopPanel();
         }
     }

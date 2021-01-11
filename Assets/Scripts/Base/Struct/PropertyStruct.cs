@@ -7,42 +7,20 @@ namespace Base.Struct
     /// </summary>
     public struct PropertyStruct
     {
-        private int m_Logic;
+        public int Logic { get; }
 
-        public int Logic
-        {
-            get => m_Logic;
-            set => m_Logic = value;
-        }
+        public int Athletics { get; }
 
-        public int Athletics
-        {
-            get => m_Athletics;
-            set => m_Athletics = value;
-        }
+        public int Talk { get; }
 
-        public int Talk
-        {
-            get => m_Talk;
-            set => m_Talk = value;
-        }
-
-        public int Creativity
-        {
-            get => m_Creativity;
-            set => m_Creativity = value;
-        }
-
-        private int m_Athletics;
-        private int m_Talk;
-        private int m_Creativity;
+        public int Creativity { get; }
 
         public PropertyStruct(int logic, int athletics, int talk, int creativity)
         {
-            m_Logic = logic;
-            m_Athletics = athletics;
-            m_Talk = talk;
-            m_Creativity = creativity;
+            Logic = logic;
+            Athletics = athletics;
+            Talk = talk;
+            Creativity = creativity;
         }
 
         public static PropertyStruct operator +(PropertyStruct PS1, BonusStruct BS2)

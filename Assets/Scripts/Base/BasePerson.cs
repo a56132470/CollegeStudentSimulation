@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Base.Struct;
+using Framework.UI.Tools;
 using UnityEngine.Serialization;
 
 [Serializable]
-/// <summary>
-/// 人类，供室友与玩家继承
-/// </summary>
+// 人类，供室友与玩家继承
 public class BasePerson
 {
     public string Name { get; set; }
@@ -34,40 +33,37 @@ public class BasePerson
 
 
     // 当前回合
-    protected int m_CurRound;
+    protected int curRound;
     /// <summary>
     /// 当前回合
     /// </summary>
     public int CurRound
     {
-        get
-        {
-            return m_CurRound;
-        }
+        get => curRound;
         set
         {
-            m_CurRound = value;
-            if (m_CurRound > 24)
+            curRound = value;
+            if (curRound > 24)
             {
-                m_CurRound = 24;
+                curRound = 24;
             }
-            if (m_CurRound <= 0)
+            if (curRound <= 0)
             {
-                m_CurRound = 1;
+                curRound = 1;
             }
         }
     }
     /// <summary>
     /// 添加从XML文件中获取的状态到当前字典
     /// </summary>
-    /// <param name="Key"></param>
-    public void AddState(string Key)
+    /// <param name="key"></param>
+    public void AddState(string key)
     {
-        if (XMLManager.Instance.stateDic.ContainsKey(Key))
+        if (XMLManager.Instance.stateDic.ContainsKey(key))
         {
-            State state = XMLManager.Instance.stateDic.GetValue(Key);
+            State state = XMLManager.Instance.stateDic.GetValue(key);
             state.RemainTime = state.Duration;
-            stateDic.Add(Key, XMLManager.Instance.stateDic.GetValue(Key));
+            stateDic.Add(key, XMLManager.Instance.stateDic.GetValue(key));
             bonus += state.Bonus;
         }
     }
