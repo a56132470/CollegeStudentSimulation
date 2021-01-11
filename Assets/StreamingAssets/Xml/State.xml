@@ -1,0 +1,217 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<States>
+    <State id = "State_Invitation_01">
+        <name>舍友的帮助1</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect>【劳动】类行动消耗行动点数-1（不低于1）</OtherEffect>
+    </State>
+	<State id = "State_Invitation_02">
+        <name>舍友的帮助2</name>
+        <logic>5</logic>
+        <talk>5</talk>
+        <athletics>5</athletics>
+        <creativity>5</creativity>
+		<duration>9999</duration>
+        <OtherEffect>玩家获得全属性加成+5</OtherEffect>
+    </State>
+    <State id = "State_Invitation_03">
+        <name>舍友的帮助3</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect>回合结束时玩家的所有属性永久+1</OtherEffect>
+    </State>	
+	<State id = "State_Temporarily_01">
+        <name>摄入糖分</name>
+        <logic>0</logic>
+        <talk>2</talk>
+        <athletics>0</athletics>
+        <creativity>1</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>	
+	
+	<State id = "State_Temporarily_02">
+        <name>提神醒脑</name>
+        <logic>1</logic>
+        <talk>1</talk>
+        <athletics>0</athletics>
+        <creativity>1</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>	
+	
+	<State id = "State_Temporarily_03">
+        <name>临时侦探</name>
+        <logic>2</logic>
+        <talk>0</talk>
+        <athletics>1</athletics>
+        <creativity>0</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>	
+	
+	<State id = "State_Temporarily_04">
+        <name>好像懂了</name>
+        <logic>1</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>2</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>	
+	
+	<State id = "State_Temporarily_05">
+        <name>涂涂画画</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>1</creativity>
+		<duration>4</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	
+	<State id = "State_Temporarily_06">
+        <name>健康出行</name>
+        <logic>0</logic>
+        <talk>1</talk>
+        <athletics>2</athletics>
+        <creativity>0</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	
+	<State id = "State_Temporarily_07">
+        <name>新的开始</name>
+        <logic>1</logic>
+        <talk>1</talk>
+        <athletics>1</athletics>
+        <creativity>1</creativity>
+		<duration>3</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Temporarily_08">
+        <name>认真游戏</name>
+        <logic>0</logic>
+        <talk>2</talk>
+        <athletics>2</athletics>
+        <creativity>2</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>	
+	<State id = "State_Temporarily_09">
+        <name>专注学习</name>
+        <logic>2</logic>
+        <talk>2</talk>
+        <athletics>0</athletics>
+        <creativity>2</creativity>
+		<duration>2</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Temporarily_10">
+        <name>决心</name>
+        <logic>3</logic>
+        <talk>3</talk>
+        <athletics>3</athletics>
+        <creativity>3</creativity>
+		<duration>6</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_01">
+        <name>工作人员</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect>可以在各类活动现场自由通行。</OtherEffect>
+    </State>
+	
+	<State id = "State_Identity_02">
+        <name>正义之键</name>
+        <logic>2</logic>
+        <talk>2</talk>
+        <athletics>2</athletics>
+        <creativity>2</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_03">
+        <name>缺考</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_04">
+        <name>参加游戏比赛</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_05">
+        <name>公司</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_06">
+        <name>游戏</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_07">
+        <name>羽毛球</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_08">
+        <name>志愿者</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_09">
+        <name>考研</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+	<State id = "State_Identity_09">
+        <name>保研</name>
+        <logic>0</logic>
+        <talk>0</talk>
+        <athletics>0</athletics>
+        <creativity>0</creativity>
+		<duration>9999</duration>
+        <OtherEffect></OtherEffect>
+    </State>
+</States>
