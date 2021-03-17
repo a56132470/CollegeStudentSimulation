@@ -107,8 +107,8 @@ namespace Framework.UI.Manager
         private void ParseUiPanelTypeJson()
         {
             _panelPathDict = new Dictionary<string, string>();
-            TextAsset textUiPanelType = Resources.Load<TextAsset>("UIPanelTypeJson");
-            UIPanelInfoList panelInfoList = JsonMapper.ToObject<UIPanelInfoList>(textUiPanelType.text);
+            var textUiPanelType = Resources.Load<TextAsset>("UIPanelTypeJson");
+            var panelInfoList = JsonMapper.ToObject<UIPanelInfoList>(textUiPanelType.text);
 
             foreach (UIPanelInfo panelInfo in panelInfoList.panelInfoList)
             {

@@ -17,8 +17,8 @@ public class GameInit : MonoBehaviour
     private void Start()
     {
         // 初始化UI管理器，加入游戏开始界面
+        
         UIPanelManager.Instance.PushPanel(UIPanelType.GameStart);
-
         EventCenter.AddListener<string, int, int>(EventType.GameInit, InitRoles);
     }
 #if UNITY_EDITOR

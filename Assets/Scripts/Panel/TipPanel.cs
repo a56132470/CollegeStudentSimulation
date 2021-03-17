@@ -2,6 +2,7 @@
 using Framework.UI.Manager;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using EventType = Framework.Event.EventType;
 
 namespace Panel
 {
